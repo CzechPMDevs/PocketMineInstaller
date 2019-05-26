@@ -1,0 +1,7 @@
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\bin\Debug\PocketMineInstaller.exe.config
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\bin\Debug\PocketMineInstaller.exe
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\bin\Debug\PocketMineInstaller.pdb
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\PocketMineInstaller.csprojAssemblyReference.cache
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\PocketMineInstaller.csproj.CoreCompileInputs.cache
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\PocketMineInstaller.exe
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\PocketMineInstaller.pdb
