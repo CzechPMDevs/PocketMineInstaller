@@ -5,3 +5,7 @@ C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\Po
 C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\PocketMineInstaller.csproj.CoreCompileInputs.cache
 C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\PocketMineInstaller.exe
 C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\PocketMineInstaller.pdb
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\bin\Debug\System.Management.Automation.dll
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\bin\Debug\Microsoft.Management.Infrastructure.dll
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\bin\Debug\System.Management.Automation.xml
+C:\Users\stehl\source\repos\PocketMineInstaller\PocketMineInstaller\obj\Debug\PocketMineInstaller.csproj.CopyComplete
