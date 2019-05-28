@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.IO.Compression;
 using System.Diagnostics;
+using System.IO;
 using System.Management;
 using System.Management.Automation;
 using System.Security.Principal;
@@ -12,13 +13,14 @@ namespace PocketMineInstaller
     class Program
     {
 
-        static string windowsPhpURL = "https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastBuild/artifact/PHP-7.2-Windows-x64.zip";
+        static string windowsPhpURL =
+            "https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastBuild/artifact/PHP-7.2-Windows-x64.zip";
 
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Out.WriteLine("-> PocketMine console installator by CzechPMDevs");
-            Console.Out.WriteLine("-> Type 'help' to display installator commands.");
+            Console.Out.WriteLine("-> PocketMine console installation by CzechPMDevs");
+            Console.Out.WriteLine("-> Type 'help' to display installation commands.");
             Console.Out.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Gray;
 
@@ -80,17 +82,18 @@ namespace PocketMineInstaller
                     Start(args[1]);
                     break;
                 case "list":
-                    if (!System.IO.Directory.Exists(getDataPath()))
+                    if (!Directory.Exists(getDataPath()))
                     {
-                        System.IO.Directory.CreateDirectory(getDataPath());
+                        Directory.CreateDirectory(getDataPath());
                     }
-                    string[] dirs = System.IO.Directory.GetDirectories(getDataPath(), "*",
-                        System.IO.SearchOption.TopDirectoryOnly);
-                    string[] server = {};
+
+                    string[] dirs = Directory.GetDirectories(getDataPath(), "*",
+                        SearchOption.TopDirectoryOnly);
+                    string[] server = { };
 
                     foreach (string dir in dirs)
                     {
-                        System.IO.DirectoryInfo info = new System.IO.DirectoryInfo(dir);
+                        DirectoryInfo info = new DirectoryInfo(dir);
                         if (info.Name != "bin")
                         {
                             server = server.Concat(new string[] {info.Name}).ToArray();
@@ -139,15 +142,67 @@ namespace PocketMineInstaller
             }
         }
 
-        static void Uninstall()
+        static void Update(string name)
         {
-            if (!System.IO.Directory.Exists(getDataPath()))
+            if (!Directory.Exists(getDataPath() + name))
             {
-                System.IO.Directory.CreateDirectory(getDataPath());
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Out.WriteLine("Server " + name + " was not found.");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.Gray;
+                return;
             }
 
-            System.IO.Directory.Delete(getDataPath(), true);
-            Console.BackgroundColor = ConsoleColor.Green;
+            try
+            {
+                File.Delete(getDataPath() + name + "/PocketMine-MP.phar");
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Out.WriteLine("Could not update running server.");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.Gray;
+                return;
+            }
+
+            Console.Out.WriteLine("Downloading latest PocketMine-MP.phar from github...");
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile(
+                "https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP.phar",
+                getDataPath() + name + "/PocketMine-MP.phar");
+
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Out.WriteLine("Server is up to date!");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        static void Uninstall()
+        {
+            if (!Directory.Exists(getDataPath()))
+            {
+                Directory.CreateDirectory(getDataPath());
+            }
+
+            try
+            {
+                Directory.Delete(getDataPath(), true);
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Out.WriteLine("Could not uninstall the installer. Some servers are running.");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.Gray;
+                return;
+            }
+            
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Out.WriteLine("PocketMine Installer data removed.");
             Console.BackgroundColor = ConsoleColor.Black;
@@ -172,7 +227,7 @@ namespace PocketMineInstaller
             ps.AddParameter("-n", "Microsoft.MinecraftUWP_8wekyb3d8bbwe");
             ps.Invoke();
 
-            Console.BackgroundColor = ConsoleColor.Green;
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Out.WriteLine("Problem is probably fixed. If it doesn't work, submit issue to our github (github.com/CzechPMDevs/PocketMineInstaller).");
             Console.BackgroundColor = ConsoleColor.Black;
@@ -206,7 +261,7 @@ namespace PocketMineInstaller
             catch (Exception e)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.Out.WriteLine(e.Message);
+                Console.Out.WriteLine("Could not uninstall running server.");
                 Console.BackgroundColor = ConsoleColor.Black;
             }
 
