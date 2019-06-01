@@ -14,7 +14,7 @@ namespace PocketMineInstaller
     {
 
         static string windowsPhpURL =
-            "https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastBuild/artifact/PHP-7.2-Windows-x64.zip";
+            "http://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastBuild/artifact/PHP-7.2-Windows-x64.zip";
 
         static void Main(string[] args)
         {
@@ -171,7 +171,7 @@ namespace PocketMineInstaller
             Console.Out.WriteLine("Downloading latest PocketMine-MP.phar from github...");
             WebClient webClient = new WebClient();
             webClient.DownloadFile(
-                "https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP.phar",
+                "http://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP.phar",
                 getDataPath() + name + "/PocketMine-MP.phar");
 
             Console.BackgroundColor = ConsoleColor.Red;
@@ -314,7 +314,7 @@ namespace PocketMineInstaller
             Console.Out.WriteLine("Downloading latest PocketMine-MP.phar from github...");
             WebClient webClient = new WebClient();
             webClient.DownloadFile(
-                "https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP.phar",
+                "http://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP.phar",
                 path + "/PocketMine-MP.phar");
             Console.Out.WriteLine("PocketMine-MP downloaded!");
 
